@@ -1,0 +1,27 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@700&display=swap');
+
+
+
+.Navlink{
+    background-color: #C32117!important;
+    border-top: 4px solid #CCCCCC!important;
+    height: 60px!important;
+}
+.colorText{
+    font-family: 'Poppins', sans-serif;
+    color: #ffffff !important;
+    font-size: 20px!important;
+}
+.colorText:hover{
+    font-family: 'Poppins', sans-serif;
+    color: #d3b5b5 !important;
+    font-size: 20px !important;
+}
+.colorTextWhite{
+    font-family: 'Poppins', sans-serif;
+    color: #ffffff !important;
+    font-size: 20px !important;
+}
+.prefix{
+    border-radius: 50%;
+}

@@ -1,0 +1,57 @@
+<app-navbar></app-navbar>
+<div class="row px-5">
+  <h1 class="inicio">{{letra}}</h1>
+  <div class="col-sm-9 col-md-6 col-lg-4 col-xl-3 px-5" *ngFor="let item of items">
+    <div class="product-card">
+      <figure class="img-product">
+        <div id="carousel-{{ item._id }}" class="carousel slide">
+          <div class="carousel-inner">
+            <div
+              *ngFor="let imagen of item.imagenes; let i = index"
+              class="carousel-item"
+              [class.active]="i === 0"
+            >
+              <img
+                class="d-block w-100 imgend"
+                [src]="imagen.url"
+                alt="{{ imagen.descripcion }}"
+              />
+            </div>
+          </div>
+          <a
+            class="carousel-control-prev"
+            href="#carousel-{{ item._id }}"
+            role="button"
+            data-bs-slide="prev"
+          >
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="sr-only">Previous</span>
+          </a>
+          <a
+            class="carousel-control-next"
+            href="#carousel-{{ item._id }}"
+            role="button"
+            data-bs-slide="next"
+          >
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="sr-only">Next</span>
+          </a>
+        </div>
+      </figure>
+      <div class="info-product text-center">
+        <h3 class="title-product">{{ item.nombre }}</h3>
+        <div class="d-flex flex-column justify-content-start">
+          <span class="antes"
+            >Antes
+            <span class="priceComercial">${{ item.precioComercial }}</span>
+          </span>
+          <span class="ahora"
+            >Ahora <span class="precio">${{ item.precio }}</span>
+          </span>
+        </div>
+      </div>
+      <a [routerLink]="['/catalogos/id/', item._id]" class="btn-cart w-100 fw-bold">¡Saber más! </a>
+    </div>
+  </div>
+</div>
+<app-footer></app-footer>

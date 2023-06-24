@@ -1,0 +1,21 @@
+<div class="login p-3">
+    <div class="logoNav w-100 d-flex justify-content-center">
+        <img width="100%" src="assets/img/logoFooter.png" alt="">
+    </div>
+    <div class="login-triangle"></div>
+    <h2 class="login-header">Iniciar sesión</h2>
+    <form [formGroup]="loginForm" (ngSubmit)="onLogin(loginForm)" class="login-container">
+        <p>
+            <input type="text" formControlName="nombre" placeholder="Nombre">
+        </p>
+        <p class="password-wrapper">
+            <input type="{{ passwordFieldType }}" formControlName="password" placeholder="Contraseña">
+            <button type="button" (click)="togglePasswordVisibility()" class="password-toggle">
+                <i class="fa" [ngClass]="passwordFieldType === 'password' ? 'fa-eye' : 'fa-eye-slash'"></i>
+            </button>
+        </p>
+        
+        <p><input type="submit" value="Ingresar"></p>
+        <p class="error-message" *ngIf="loginError">{{ loginError }}</p>
+    </form>
+</div>

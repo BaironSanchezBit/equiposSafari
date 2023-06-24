@@ -1,0 +1,63 @@
+    <section class="w-100">
+        <div class="logoNav w-100 d-flex justify-content-center">
+            <img class="py-2" width="400px" src="../../assets/img/logoNav.png" alt="">
+        </div>
+        <div class="Navlink d-flex">
+            <span class="col-2"></span>
+            <ul class="nav nav-pills col-8 d-flex justify-content-center align-items-center">
+                <li class="nav-item">
+                    <a class="colorText nav-link" aria-current="page" routerLink="/">Inicio</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="colorText nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                        aria-expanded="false">
+                        Catálogo
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" routerLink="/catalogos">Hornos</a></li>
+                        <li><a class="dropdown-item" routerLink="/catalogos">Mojadoras</a></li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+                        <li><a class="dropdown-item" routerLink="/catalogos"> Todo </a></li>
+                    </ul>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="colorText nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                        aria-expanded="false">
+                        Maquinaria de Segunda
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" (click)="redirectToCatalogo('Hornos')">Hornos</a></li>
+                        <li><a class="dropdown-item" (click)="redirectToCatalogo('Mojadoras')">Mojadoras</a></li>
+                        <li><a class="dropdown-item" (click)="redirectToCatalogo('Batidoras')">Batidoras</a></li>
+                        <li><a class="dropdown-item" (click)="redirectToCatalogo('Empacadoras')">Empacadoras</a></li>
+                        <li><a class="dropdown-item" (click)="redirectToCatalogo('Multiformadoras')">Multiformadoras</a></li>
+                        <li><a class="dropdown-item" (click)="redirectToCatalogo('Divisoras de pan')">Divisoras de pan</a></li>
+                        <li><a class="dropdown-item" (click)="redirectToCatalogo('Tajadoras de pan')">Tajadoras de pan</a></li>
+                        <li><a class="dropdown-item" (click)="redirectToCatalogo('Cortadoras de masa')">Cortadoras de masa</a></li>
+                        <li><a class="dropdown-item" (click)="redirectToCatalogo('Cuartos de crecimiento')">Cuartos de crecimiento</a></li>
+                        <li><a class="dropdown-item" (click)="redirectToCatalogo('Bandejas nacionales')">Bandejas nacionales</a></li>
+                        <li><a class="dropdown-item" (click)="redirectToCatalogo('Bandejas importadas')">Bandejas importadas</a></li>
+                        <li><a class="dropdown-item" (click)="redirectToCatalogo('Cilindro automatico')">Cilindro automatico</a></li>
+                        <li><a class="dropdown-item" (click)="redirectToCatalogo('Maquinas Galleteras')">Maquinas Galleteras</a></li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+                        <li><a class="dropdown-item" (click)="redirectToCatalogo('Repuestos para toda Maquinaria')">Repuestos para toda Maquinaria</a></li>
+                        <li><a class="dropdown-item" (click)="redirectToCatalogo('Otros')">Otros</a></li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+                        <li><a class="dropdown-item" routerLink="/catalogos">Todo</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <a class="colorText nav-link" routerLink="/nosotros">Nosotros</a>
+                </li>
+                <li class="nav-item">
+                    <a class="colorText nav-link" routerLink="/contacto">Contacto</a>
+                </li>
+            </ul>
+        </div>
+    </section>

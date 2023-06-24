@@ -1,0 +1,30 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+
+.btnEnviar{
+    width: 130px;
+    height: 40px;
+    color: #ffffff;
+    background-color: #C32117;
+    border: none;
+}
+.btnEnviar:hover{
+    background-color: #94150e;
+}
+.sectionContact{
+    width: 70%;
+    padding: 5% 22%;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+.inputsContact{
+    padding: 8px 10px ;
+    margin: 1%;
+}
+.inputsContactComent{
+    padding: 8px 10px ;
+    min-height: 10rem;
+    resize: none;
+    margin: 1%;
+}

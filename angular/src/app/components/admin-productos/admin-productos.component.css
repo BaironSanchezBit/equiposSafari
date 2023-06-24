@@ -1,0 +1,32 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+
+.sectionBody{
+    background-color: #5a5a5a;
+    height: 94.2vh;
+}
+.sectionc{
+    background-color: #5a5a5a;
+    padding: 1% 5% 1%;
+}
+/* Extra small devices (phones, 600px and down) */
+@media only screen and (max-width: 992px) {
+    td:nth-child(1),
+    th:nth-child(1),
+    td:nth-child(3),
+    th:nth-child(3) {
+        display: none;
+    }
+    th:nth-child(2), td:nth-child(2) {
+        width: 80px !important;
+        font-size: 14px;
+    }
+    th:nth-child(4), td:nth-child(4) {
+        width: 130px !important;
+        font-size: 14px;
+    }
+    th:nth-child(5), td:nth-child(5) {
+        width: 80px !important;
+        font-size: 14px;
+    }
+}

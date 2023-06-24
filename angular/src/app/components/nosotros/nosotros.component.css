@@ -1,0 +1,10 @@
+.borderDiv{
+    background-color: #C32117;
+    width: 40%;
+    height: auto;
+    border-radius: 10px;
+}
+.borderDiv:hover{
+    background-color: #aa1810;
+    height: auto;
+}

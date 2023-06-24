@@ -1,0 +1,50 @@
+<!-- <div class="login">
+
+    <div class="logoNav w-100 d-flex justify-content-center">
+        <img width="600px" src="assets/img/logoFooter.png" alt="">
+    </div>
+
+    <div class="login-triangle"></div>
+
+    <h2 class="login-header">Registrarse</h2>
+
+    <form [formGroup]="registerForm" (ngSubmit)="onRegister(registerForm)" class="login-container">
+        <p>
+            <input type="text" formControlName="nombre" placeholder="Nombre" required>
+        </p>
+        <p>
+            <input type="text" formControlName="apellido" placeholder="Apellido" required>
+        </p>
+        <p>
+            <input type="number" formControlName="telefono" placeholder="Teléfono" required>
+        </p>
+        <p>
+            <input type="email" formControlName="email" placeholder="Correo electrónico" required>
+        </p>
+        <p class="password-wrapper">
+            <input type="{{ passwordFieldType }}" formControlName="password" placeholder="Contraseña" required>
+            <button type="button" (click)="togglePasswordVisibility()" class="password-toggle">
+                <i class="fa" [ngClass]="passwordFieldType === 'password' ? 'fa-eye' : 'fa-eye-slash'"></i>
+            </button>
+        </p>
+        <p class="password-wrapper">
+            <input type="{{ passwordFieldType }}" formControlName="confirmPassword" placeholder="Confirmar contraseña" required>
+            <button type="button" (click)="togglePasswordVisibilityCheck()" class="password-toggle">
+                <i class="fa"
+                    [ngClass]="registerForm.controls['confirmPassword'].value === registerForm.controls['password'].value ? 'fa-check' : 'fa-times'"
+                    [style.color]="registerForm.controls['confirmPassword'].value === registerForm.controls['password'].value ? '#1eff00' : 'red'"></i>
+            </button>
+        </p>
+    
+        <p>
+            <input type="submit" value="Register">
+        </p>
+        <p class="error-message"
+            *ngIf="registerForm.controls['email'].invalid && (registerForm.controls['email'].dirty || registerForm.controls['email'].touched)">
+            Invalid email format
+        </p>
+        <p class="error-message" *ngIf="registerError">{{ registerError }}</p>
+    </form>
+    
+</div>
+-->

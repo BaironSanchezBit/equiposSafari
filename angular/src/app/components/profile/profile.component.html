@@ -1,0 +1,52 @@
+<!--
+<div class="login" >
+
+    <div class="logoNav w-100 d-flex justify-content-center">
+        <img width="600px" src="assets/img/logoFooter.png" alt="">
+    </div>
+
+    <div class="login-triangle"></div>
+
+    <h2 class="login-header">Actualizar Datos</h2>
+
+    <form [formGroup]="updateForm" (ngSubmit)="updateUser()" class="login-container">
+        <p>
+            <input type="text" formControlName="nombre" placeholder="Nombre" required>
+        </p>
+        <p>
+            <input type="text" formControlName="apellido" placeholder="Apellido" required>
+        </p>
+        <p>
+            <input type="number" formControlName="telefono" placeholder="Teléfono" required>
+        </p>
+        <p>
+            <input type="email" formControlName="email" placeholder="Correo electrónico" readonly required>
+        </p>
+        <form [formGroup]="confirmForm" class="login-container">
+            <h5 class="text-center">Validación de Contraseña:</h5>
+            <p class="password-wrapper">
+                <input type="{{ passwordFieldType }}" formControlName="password" placeholder="Contraseña" required>
+                <button type="button" (click)="togglePasswordVisibility()" class="password-toggle">
+                    <i class="fa" [ngClass]="passwordFieldType === 'password' ? 'fa-eye' : 'fa-eye-slash'"></i>
+                </button>
+            </p>
+            <p class="password-wrapper">
+                <input type="{{ passwordFieldType }}" formControlName="confirmPassword" placeholder="Confirmar contraseña" required>
+                <button type="button" (click)="togglePasswordVisibilityCheck()" class="password-toggle">
+                    <i class="fa"
+                        [ngClass]="confirmForm.controls['confirmPassword'].value === confirmForm.controls['password'].value ? 'fa-check' : 'fa-times'"
+                        [style.color]="confirmForm.controls['confirmPassword'].value === confirmForm.controls['password'].value ? '#1eff00' : 'red'"></i>
+                </button>
+            </p>
+    
+            
+        </form>
+        <p>
+            <input type="submit" value="Actualizar">
+        </p>
+    </form>
+    
+    
+    
+</div>
+-->
