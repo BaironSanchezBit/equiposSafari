@@ -25,3 +25,10 @@
 .prefix{
     border-radius: 50%;
 }
+
+section{
+    background-color: #ffffff;
+    position: fixed;
+    top: 0;
+    z-index: 999;
+}

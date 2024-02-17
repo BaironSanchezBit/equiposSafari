@@ -1,38 +1,44 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
 
-.footerAll{
+.footerAll {
     background-color: #ffffff;
     height: 300px;
 }
-.colorText{
+
+.colorText {
     color: #C32117;
     font-size: 2.1rem;
 }
-.colorTextTelefono{
+
+.colorTextTelefono {
     color: #C32117;
     font-size: 16px;
 }
-.colorTextPhone{
+
+.colorTextPhone {
     color: #C32117;
     font-size: 22px;
 }
-.colorTextEmail{
+
+.colorTextEmail {
     color: #C32117;
     font-size: 14px;
 }
-.googleMap{
+
+.googleMap {
     width: 300px;
     height: 150px;
 }
-.coloTextLinksActive{
+
+.coloTextLinksActive {
     color: #C32117;
     font-size: 25px;
     font-family: 'Roboto Condensed', sans-serif;
 }
-.coloTextLinks{
+
+.coloTextLinks {
     color: #C32117;
     font-size: 19px;
     font-family: 'Poppins', sans-serif;
-
 }

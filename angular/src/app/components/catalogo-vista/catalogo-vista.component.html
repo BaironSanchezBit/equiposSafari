@@ -1,20 +1,26 @@
 <app-navbar></app-navbar>
 <div class="completo">
-    <div class="container col-12 d-flex p-5">
+    <div class="container col-12 d-flex">
         <div class="col-6 d-flex flex-column">
-            <div class="row justify-content-center">
-                <div *ngFor="let imagen of item.imagenes; let i= index;"
-                    class="bordel col-6 py-2 d-flex justify-content-center">
-                    <a data-bs-toggle="modal" [attr.data-bs-target]="'#modal-' +
-                        i">
-                        <img class="img" src="{{ imagen.url }}" alt="{{
-                            imagen.descripcion }}">
-                    </a>
+            <div *ngIf="item && item.imagenes.length > 0" class="bordel">
+                <div class="img-zoom-container">
+                    <button class="close" (click)="abrirImagenEnModal(imagenSeleccionadaIndex)"><img src="../assets/img/search.png" alt="search" width="20px"></button>
+                    <img class="img-principal" [src]="imagenPrincipalUrl" [alt]="item.imagenes[0]?.descripcion"
+                        (mousemove)="zoomImage($event)" (mouseleave)="removeZoom()">
                 </div>
+            </div>
+
+            <div *ngIf="item.imagenes.length > 0" class="contenedor-imagenes">
+                <ng-container *ngFor="let imagen of item.imagenes; let i = index">
+                    <div (click)="cambiarImagenPrincipal(imagen.url, i)">
+                        <img class="img-secundaria" [src]="imagen.url" [alt]="imagen.descripcion"
+                            [ngClass]="{'img-inactiva': imagen.url !== imagenSeleccionada}">
+                    </div>
+                </ng-container>
             </div>
         </div>
         <div class="col-6 d-flex flex-column">
-            <p class="pSafari">@SAFARIMAQUINASDESEGUNDA</p>
+            <p class="pSafari">SAFARIMAQUINASDESEGUNDA</p>
             <p class="pNombre"> {{ item.nombre }}</p>
             <span class="antes">Precio comercial
                 <span class="priceComercial">${{ item.precioComercial }}</span>
@@ -27,46 +33,7 @@
     </div>
 </div>
 
+<app-image-modal *ngIf="showModal" [title]="item.nombre" [images]="imageObject" [initialIndex]="imagenSeleccionadaIndex"
+    (close)="showModal = false"></app-image-modal>
 
-<div *ngFor="let imagen of item.imagenes; let i= index;" class="modal fade"
-    [id]="'modal-' + i" tabindex="-1" aria-labelledby="modalLabel"
-    aria-hidden="true">
-    <div class="modal-dialog modal-dialog-scrollable">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="modalLabel">{{ imagen.descripcion }}</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal"
-                    aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <div id="carousel-{{ item._id }}-{{ i }}" class="carousel
-                    slide">
-                    <div class="carousel-inner">
-                        <div *ngFor="let img of item.imagenes; let j= index"
-                            class="carousel-item" [class.active]="j === i">
-                            <img class="imgend" [src]="img.url"
-                                alt="{{ img.descripcion }}" />
-                        </div>
-                    </div>
-                    <a class="carousel-control-prev" href="#carousel-{{ item._id
-                        }}-{{ i }}" role="button" data-bs-slide="prev">
-                        <span class="carousel-control-prev-icon"
-                            aria-hidden="true"></span>
-                        <span class="sr-only">Previous</span>
-                    </a>
-                    <a class="carousel-control-next" href="#carousel-{{ item._id
-                        }}-{{ i }}" role="button" data-bs-slide="next">
-                        <span class="carousel-control-next-icon"
-                            aria-hidden="true"></span>
-                        <span class="sr-only">Next</span>
-                    </a>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary"
-                    data-bs-dismiss="modal">Close</button>
-            </div>
-        </div>
-    </div>
-</div>
 <app-footer></app-footer>

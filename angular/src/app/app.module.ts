@@ -22,6 +22,8 @@ import { AdminProductosCrearComponent } from './components/admin-productos-crear
 import { AdminProductosNavbarComponent } from './components/admin-productos-navbar/admin-productos-navbar.component';
 import { AdminLoginComponent } from './components/admin-login/admin-login.component';
 import { FormsModule } from '@angular/forms';
+import { ImageModalComponent } from './components/image-modal/image-modal.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -40,13 +42,15 @@ import { FormsModule } from '@angular/forms';
     AdminProductosCrearComponent,
     AdminProductosNavbarComponent,
     AdminLoginComponent,
+    ImageModalComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    BrowserAnimationsModule
   ],
   providers: [AuthService, CookieService],
   bootstrap: [AppComponent]

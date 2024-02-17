@@ -1,55 +1,131 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
 
-body{
+body {
     font-family: 'Poppins', sans-serif;
 }
 
-.img{
+.img {
     width: 200px !important;
     height: 250px !important;
 }
 
-.imgend{
-    width: 470px !important;
+.imgend {
+    width: 100% !important;
     height: 600px !important;
 }
 
-.bordel{
-    display: flex;
-    align-items: center;
-    padding: 0 !important;
-    width: 210px !important;
-    height: 260px !important;
+.img-zoom-container {
+    overflow: hidden;
+    width: 100%;
+    height: Reference;
+    position: relative;
 }
-.completo{
-    margin: 3%;
-    box-shadow: 0px 0px 8px 0px rgba(0,0,0,0.45);
-    border-radius: 10px;
 
+.img-principal {
+    width: 100%;
+    height: 600px;
+    transition: transform 0.5s ease;
+    transform-origin: center;
 }
-.pSafari{
+
+.img-principal {
+    transition: opacity 0.5s ease-in-out;
+    opacity: 1;
+}
+
+.img-principal.fade-out {
+    opacity: 0;
+}
+
+.img-principal:hover {
+    transform: scale(2);
+}
+
+.img-secundaria {
+    width: 50px;
+    height: 50px;
+    cursor: pointer;
+}
+
+.img-inactiva {
+    filter: brightness(50%);
+}
+
+.contenedor-imagenes {
+    display: grid;
+    margin-top: 8px;
+    grid-template-columns: repeat(auto-fill, minmax(43px, 1fr));
+    gap: 8px;
+    padding: 0 12%;
+}
+
+.completo {
+    margin: 10% 0 3%;
+}
+
+.pSafari {
     font-size: 11px;
     color: #929292;
 }
-.pNombre{
+
+.pNombre {
     font-family: 'Roboto Condensed', sans-serif;
     font-size: 30px;
     font-weight: bold;
 }
-.priceComercial{
+
+.priceComercial {
     color: #929292;
     text-decoration: line-through;
 }
-.antes{
-    font-size:15px;
+
+.antes {
+    font-size: 15px;
     color: #929292;
 }
-.desC{
+
+.desC {
     color: #616161;
     font-size: 16px;
 }
-.pDes{
+
+.pDes {
     color: #5e5e5e;
     font-size: 16px;
+}
+
+.img-zoom-container {
+    position: relative;
+}
+
+.img-zoom-lens {
+    position: absolute;
+    border: 1px solid #d4d4d4;
+    width: 100px;
+    height: 100px;
+}
+
+.bordel {
+    padding: 0 12%;
+}
+
+.close {
+    cursor: pointer;
+    position: absolute;
+    top: 10%;
+    left: 0%;
+    width: auto;
+    margin-top: -50px;
+    color: rgb(0, 0, 0);
+    font-weight: bold;
+    transition: 0.6s ease;
+    user-select: none;
+    border: none;
+    z-index: 1000;
+    background-color: rgba(240, 248, 255, 0);
+}
+
+.close:hover {
+    color: rgb(131, 131, 131);
 }
