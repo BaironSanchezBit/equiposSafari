@@ -43,44 +43,52 @@ export class CatalogoComponent implements AfterViewInit {
       const opcion = params.get('opcion');
       if (opcion) {
         this.letra = opcion;
-        this.catalogoService.obtenerCatalogoPorOpcion(opcion).subscribe((data: any) => {
-          this.items = data;
-
-          setTimeout(() => {
-            this.isLoading = false;
-            this.startFadeAnimation();
-          }, 1000);
-          this.changeDetectorRef.detectChanges();
-          this.adjustIndicePosition();
-        });
+        if (opcion === "Todo") {
+          this.catalogoService.obtenerCatalogoPorTodo().subscribe(this.procesarDatos());
+        } else {
+          this.catalogoService.obtenerCatalogoPorOpcion(opcion).subscribe(this.procesarDatos());
+        }
       }
     });
   }
 
-  onCategoriaChange(categoria: string) {
-    this.isLoading2 = true; // Activar el indicador de carga
-    this.changeDetectorRef.detectChanges(); // Detectar cambios para asegurar que la UI se actualice con el spinner
-
-    // Navegar a la nueva categoría
-    this.router.navigate(['/catalogos', categoria]).then(() => {
-      // Introducir un breve retraso antes de cargar los nuevos ítems
+  private procesarDatos() {
+    return (data: any) => {
+      this.items = data;
       setTimeout(() => {
-        this.cargarItems(categoria);
-      }, 100); // Ajusta este tiempo si es necesario
-    });
+        this.isLoading = false;
+        this.startFadeAnimation();
+      }, 1000);
+      this.changeDetectorRef.detectChanges();
+      this.adjustIndicePosition();
+    };
   }
 
+  onCategoriaChange(categoria: string) {
+    this.isLoading2 = true;
+    this.changeDetectorRef.detectChanges();
+
+    this.router.navigate(['/catalogos', categoria]).then(() => {
+      setTimeout(() => {
+        this.cargarItems(categoria);
+      }, 100);
+    });
+  }
 
   private cargarItems(categoria: string) {
     this.items = [];
     this.catalogoService.obtenerCatalogoPorOpcion(categoria).subscribe((data: any) => {
       setTimeout(() => {
-        this.items = data; // Actualizar los ítems con los nuevos datos
-        this.isLoading2 = false; // Desactivar el indicador de carga
-        this.changeDetectorRef.detectChanges(); // Detectar cambios nuevamente
-        this.startFadeAnimation(); // Iniciar la animación
-      }, 1000); // Ajusta este tiempo según la experiencia de usuario deseada
+        this.items = data;
+        this.isLoading2 = false;
+        this.changeDetectorRef.detectChanges();
+        this.startFadeAnimation();
+      }, 1000);
     });
+  }
+
+  trackByFn(index: any, item: any) {
+    return item._id;
   }
 
   private startFadeAnimation() {
@@ -92,7 +100,7 @@ export class CatalogoComponent implements AfterViewInit {
     }
 
     elements.forEach(el => (el as HTMLElement).classList.add('fade-animation'));
-    this.changeDetectorRef.detectChanges(); // Detectar cambios después de iniciar la animación
+    this.changeDetectorRef.detectChanges();
   }
 
 

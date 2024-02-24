@@ -35,7 +35,7 @@ export class AdminLoginComponent {
       timer: 2000,
       timerProgressBar: true,
       didOpen: () => {
-        Swal.showLoading()
+        Swal.showLoading(null)
       },
       willClose: () => {
         clearInterval(timerInterval)
@@ -60,6 +60,6 @@ export class AdminLoginComponent {
         );
       }
     });
-    
+
   }
 }

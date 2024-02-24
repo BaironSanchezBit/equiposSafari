@@ -252,16 +252,22 @@
     <div class="divProductos" [ngClass]="{'row': productosPorFila != 1}"
       [ngStyle]="{'width': productosPorFila === 1 ? '90%' : ''}">
       <div *ngIf="isLoading2" class="divSpinner">
-        <div class="spinner2" ></div>
+        <div class="spinner2"></div>
       </div>
-      <div class="product-card" *ngFor="let item of items" [@fade]="isAnimationReady ? 'visible' : 'invisible'"
+      <div class="noHayItems" *ngIf="items.length === 0">
+        <i class="fa-solid fa-store-slash"></i>
+        <h5>Ningún producto publicado</h5>
+      </div>
+      <div class="product-card mb-3" *ngFor="let item of items; trackBy: trackByFn"
+        [@fade]="isAnimationReady ? 'visible' : 'invisible'"
         [ngClass]="{'column': productosPorFila === 1, 'width-50': productosPorFila === 2, 'width-33': productosPorFila === 3, 'width-25': productosPorFila === 4, 'width-20': productosPorFila === 5, 'width-100': productosPorFila === 1, 'highlight': animationState === 'highlight'}">
         <div
           [ngClass]="{'width-50': productosPorFila === 2, 'width-33': productosPorFila === 3, 'width-25': productosPorFila === 4, 'width-20': productosPorFila === 5, 'width-100': productosPorFila === 1}"
           [ngStyle]="{'width': productosPorFila === 1 ? '20%' : 'auto'}">
           <figure class="img-product">
             <div id="carousel-{{ item._id }}" class="carousel slide">
-              <div class="carousel-inner" [routerLink]="['/catalogos/id/', item._id]">
+              <div class="carousel-inner"
+                [ngClass]="{'width-50': productosPorFila === 2, 'width-33': productosPorFila === 3, 'width-25': productosPorFila === 4, 'width-20': productosPorFila === 5, 'width-100': productosPorFila === 1}">
                 <div *ngFor="let imagen of item.imagenes; let i = index" class="carousel-item" [class.active]="i === 0">
                   <img
                     [ngClass]="{'height-50': productosPorFila === 2, 'height-33': productosPorFila === 3, 'height-25': productosPorFila === 4, 'height-20': productosPorFila === 5, 'height-100': productosPorFila === 1}"
@@ -280,9 +286,17 @@
           </figure>
           <div class="info-product" [ngClass]="{'d-none': productosPorFila === 1}">
             <h3 class="title-product">{{ item.nombre }}</h3>
-            <div class="d-flex flex-column justify-content-start">
+            <div class="d-flex flex-column justify-content-end a">
+              <div class="stars">
+                <i class="fa-regular fa-star"></i>
+                <i class="fa-regular fa-star"></i>
+                <i class="fa-regular fa-star"></i>
+                <i class="fa-regular fa-star"></i>
+                <i class="fa-regular fa-star"></i>
+              </div>
               <span class="precio">${{ item.precio }} <span class="priceComercial">${{ item.precioComercial
                   }}</span></span>
+              <button type="button" class="verMas" [routerLink]="['/catalogos/id/', item._id]">VER MÁS</button>
             </div>
           </div>
         </div>
@@ -304,9 +318,7 @@
           </div>
         </div>
       </div>
-
     </div>
-
   </div>
 </div>
 

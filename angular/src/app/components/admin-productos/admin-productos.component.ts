@@ -51,7 +51,7 @@ export class AdminProductosComponent {
       timer: 800,
       timerProgressBar: true,
       didOpen: () => {
-        Swal.showLoading()
+        Swal.showLoading(null)
       },
       willClose: () => {
         clearInterval(timerInterval)

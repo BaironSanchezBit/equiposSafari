@@ -34,7 +34,7 @@ export class AdminProductosNavbarComponent {
       timer: 2000,
       timerProgressBar: true,
       didOpen: () => {
-        Swal.showLoading()
+        Swal.showLoading(null)
       },
       willClose: () => {
         clearInterval(timerInterval)
@@ -55,7 +55,7 @@ export class AdminProductosNavbarComponent {
       timer: 800,
       timerProgressBar: true,
       didOpen: () => {
-        Swal.showLoading()
+        Swal.showLoading(null)
       },
       willClose: () => {
         clearInterval(timerInterval)
