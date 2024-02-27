@@ -9,6 +9,10 @@
   box-shadow: 0px 18px 23px -6px rgba(0, 0, 0, 0.17);
 }
 
+.loading-state .product-card {
+  box-shadow: none !important;
+}
+
 .product-card.width-100 {
   width: 100%;
 }
@@ -55,7 +59,7 @@
   height: 300px;
 }
 
-.carousel-item{
+.carousel-item {
   height: 100%;
 }
 
@@ -151,13 +155,24 @@ svg {
 }
 
 .product-card .info-product .title-product {
-  padding: 3% 5% 0;
+  padding: 3% 0;
+  margin: 0;
+  height: 50px;
   font-size: 16px;
   font-family: 'Poppins', sans-serif;
   text-decoration: underline;
   font-weight: 700;
   color: #131313;
 }
+
+.info-product {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: auto;
+  padding: 10px 5%;
+}
+
 
 .verMas {
   background-color: #C32117;
@@ -166,7 +181,7 @@ svg {
   font-weight: bold;
   color: #ffffff;
   padding: 2% 0;
-  margin: 4%
+  margin: 0 0 3% 0;
 }
 
 .verMas:hover {
@@ -222,7 +237,7 @@ svg {
 }
 
 .precio {
-  padding: 2% 5% 0;
+  padding: 0 0 3% 0;
   font-size: 17px;
   font-family: 'Poppins', sans-serif;
   font-weight: bold;
@@ -230,13 +245,12 @@ svg {
 }
 
 .stars {
-  padding: 1% 5% 0;
+  padding: 0 0 3% 0;
 }
 
 .stars i {
   color: #AFAFAF;
 }
-
 
 .btn-cart {
   color: #ffffff;
@@ -301,7 +315,6 @@ h4 {
   margin-bottom: 10px;
   text-transform: uppercase;
 }
-
 
 .radio-container {
   display: flex;
@@ -456,14 +469,20 @@ h4 {
 }
 
 .divSpinner {
-  background-color: #ffffff;
-  width: 70%;
-  height: 60vh;
   position: absolute;
-  z-index: 1;
+  top: 0;
+  left: 0;
+  z-index: 10000;
+  width: 100%;
+  height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
+  background-color: #fff;
+}
+
+.divProductos {
+  position: relative;
 }
 
 .noHayItems {

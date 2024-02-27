@@ -54,15 +54,19 @@ export class CatalogoComponent implements AfterViewInit {
 
   private procesarDatos() {
     return (data: any) => {
-      this.items = data;
+      const tiempoEsperaMinimo = 1000;
+
       setTimeout(() => {
         this.isLoading = false;
+        this.isLoading2 = false;
+        this.items = data;
+        this.changeDetectorRef.detectChanges();
+        this.adjustIndicePosition();
         this.startFadeAnimation();
-      }, 1000);
-      this.changeDetectorRef.detectChanges();
-      this.adjustIndicePosition();
+      }, tiempoEsperaMinimo);
     };
   }
+
 
   onCategoriaChange(categoria: string) {
     this.isLoading2 = true;
@@ -77,15 +81,14 @@ export class CatalogoComponent implements AfterViewInit {
 
   private cargarItems(categoria: string) {
     this.items = [];
-    this.catalogoService.obtenerCatalogoPorOpcion(categoria).subscribe((data: any) => {
-      setTimeout(() => {
-        this.items = data;
-        this.isLoading2 = false;
-        this.changeDetectorRef.detectChanges();
-        this.startFadeAnimation();
-      }, 1000);
-    });
+
+    if (categoria === "Todo") {
+      this.catalogoService.obtenerCatalogoPorTodo().subscribe(this.procesarDatos());
+    } else {
+      this.catalogoService.obtenerCatalogoPorOpcion(categoria).subscribe(this.procesarDatos());
+    }
   }
+
 
   trackByFn(index: any, item: any) {
     return item._id;

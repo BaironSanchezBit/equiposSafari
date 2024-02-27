@@ -260,7 +260,7 @@
       </div>
       <div class="product-card mb-3" *ngFor="let item of items; trackBy: trackByFn"
         [@fade]="isAnimationReady ? 'visible' : 'invisible'"
-        [ngClass]="{'column': productosPorFila === 1, 'width-50': productosPorFila === 2, 'width-33': productosPorFila === 3, 'width-25': productosPorFila === 4, 'width-20': productosPorFila === 5, 'width-100': productosPorFila === 1, 'highlight': animationState === 'highlight'}">
+        [ngClass]="{'loading-state': isLoading2,'column': productosPorFila === 1, 'width-50': productosPorFila === 2, 'width-33': productosPorFila === 3, 'width-25': productosPorFila === 4, 'width-20': productosPorFila === 5, 'width-100': productosPorFila === 1, 'highlight': animationState === 'highlight'}">
         <div
           [ngClass]="{'width-50': productosPorFila === 2, 'width-33': productosPorFila === 3, 'width-25': productosPorFila === 4, 'width-20': productosPorFila === 5, 'width-100': productosPorFila === 1}"
           [ngStyle]="{'width': productosPorFila === 1 ? '20%' : 'auto'}">
@@ -286,18 +286,16 @@
           </figure>
           <div class="info-product" [ngClass]="{'d-none': productosPorFila === 1}">
             <h3 class="title-product">{{ item.nombre }}</h3>
-            <div class="d-flex flex-column justify-content-end a">
-              <div class="stars">
-                <i class="fa-regular fa-star"></i>
-                <i class="fa-regular fa-star"></i>
-                <i class="fa-regular fa-star"></i>
-                <i class="fa-regular fa-star"></i>
-                <i class="fa-regular fa-star"></i>
-              </div>
-              <span class="precio">${{ item.precio }} <span class="priceComercial">${{ item.precioComercial
-                  }}</span></span>
-              <button type="button" class="verMas" [routerLink]="['/catalogos/id/', item._id]">VER MÁS</button>
+            <div class="stars">
+              <i class="fa-regular fa-star"></i>
+              <i class="fa-regular fa-star"></i>
+              <i class="fa-regular fa-star"></i>
+              <i class="fa-regular fa-star"></i>
+              <i class="fa-regular fa-star"></i>
             </div>
+            <span class="precio">${{ item.precio }} <span class="priceComercial">${{ item.precioComercial
+                }}</span></span>
+            <button type="button" class="verMas" [routerLink]="['/catalogos/id/', item._id]">VER MÁS</button>
           </div>
         </div>
         <div [ngClass]="{'d-none': productosPorFila != 1, 'porFilaOne': productosPorFila === 1}"
