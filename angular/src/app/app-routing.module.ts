@@ -15,7 +15,7 @@ const routes: Routes = [
   { path: 'nosotros', component: NosotrosComponent },
   { path: 'contacto', component: ContactoComponent },
   { path: 'adminLogin/login', component: AdminLoginComponent },
-  { path: 'adminLogin/logout', component: AdminLoginComponent },
+  { path: 'adminLogin/logout', component: AdminLoginComponent, canActivate: [AuthGuard] },
   { path: 'adminProductosCrear', component: AdminProductosCrearComponent, canActivate: [AuthGuard] },
   { path: 'adminProductos/Todo', component: AdminProductosComponent, canActivate: [AuthGuard] },
   { path: 'adminProductos/update/:id', component: AdminProductosCrearComponent, canActivate: [AuthGuard] },

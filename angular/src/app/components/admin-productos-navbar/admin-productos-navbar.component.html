@@ -1,4 +1,4 @@
-<nav class="navbar navbar-dark bg-dark">
+<!-- <nav class="navbar navbar-dark bg-dark">
     <div class="container-fluid">
         <a class="navbar-brand fw-bold">Panel de Administración</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas"
@@ -34,4 +34,114 @@
             </div>
         </div>
     </div>
+</nav> -->
+
+<app-admin-navbar-top></app-admin-navbar-top>
+
+<div id="nav-bar"><input id="nav-toggle" type="checkbox">
+  <div id="nav-header">
+    <a id="nav-title" routerLink="/sistema">
+      <img class="imgUser" src="../assets/img/logoFooter.png" alt="">
+      <h4>{{user?.nombre}}</h4>
+      <h5>{{user?.cargo}}</h5>
+    </a><label for="nav-toggle"><span id="nav-toggle-burger"></span></label>
+    <hr />
+  </div>
+  <div id="nav-content">
+    <div [routerLink]="['/tablero']" routerLinkActive="router-link-active" class="nav-button"><i
+        class="fa-solid fa-address-card"></i><span>Tablero</span></div>
+    <div [routerLink]="['/inventario']" routerLinkActive="router-link-active" class="nav-button"><i
+        class="fa-solid fa-cart-shopping"></i><span>Inventario</span></div>
+    <div id="nav-content-highlight"></div>
+  </div><input id="nav-footer-toggle" type="checkbox" />
+</div>
+
+<nav class="navbar">
+  <button class="navbar-toggler" (click)="toggleNavbar()">☰</button>
+  <div class="navbar-menu" [class.active]="navbarOpen">
+    <button class="close-menu" (click)="toggleNavbar()">x</button>
+    <!-- Tus enlaces aquí -->
+    <div id="nav-header">
+      <div id="nav-title">
+        <img class="imgUser" src="../assets/img/logoFooter.png" alt="">
+      </div>
+      <hr />
+    </div>
+    <div [routerLink]="['/registro']" routerLinkActive="router-link-active" class="nav-button"><i
+        class="fa-solid fa-address-card"></i><span>Registro</span></div>
+    <div [routerLink]="['/compra']" routerLinkActive="router-link-active" class="nav-button"><i
+        class="fa-solid fa-cart-shopping"></i><span>Compra</span></div>
+    <div [routerLink]="['/venta']" routerLinkActive="router-link-active" class="nav-button"><i
+        class="fa-solid fa-sack-dollar"></i><span>Ventas</span></div>
+
+    <div [routerLink]="['/alistamiento']" routerLinkActive="router-link-active" class="nav-button"><i
+        class="fa-solid fa-list-check"></i><span>Alistamiento</span></div>
+
+    <div [routerLink]="['/orden-trabajo']" routerLinkActive="router-link-active" class="nav-button"><i
+        class="fa-solid fa-screwdriver-wrench"></i><span>Orden de Trabajo</span></div>
+
+    <div
+      [routerLink]="['/modulo-credito']" routerLinkActive="router-link-active" class="nav-button"><i
+        class="fa-solid fa-credit-card"></i><span>Crédito</span></div>
+
+    <div
+      [routerLink]="['/cotizaciones']" routerLinkActive="router-link-active" class="nav-button"><i
+        class="fa-solid fa-scroll"></i><span>Cotizaciones</span></div>
+    <div
+      [routerLink]="['/tramites']" routerLinkActive="router-link-active" class="nav-button"><i
+        class="fa-solid fa-file-circle-plus"></i><span>Trámites</span></div>
+    <div
+      [routerLink]="['/contabilidad']" routerLinkActive="router-link-active" class="nav-button"><i
+        class="fa-solid fa-calculator"></i><span>Contabilidad</span></div>
+    <div [routerLink]="['/control-bd']"
+      routerLinkActive="router-link-active" class="nav-button"><i class="fa-solid fa-database"></i><span>Bases de
+        datos</span>
+    </div>
+    <div
+      routerLinkActive="router-link-active" class="nav-button"><i class="fa-solid fa-chart-simple"></i><span>Cuadro
+        Gerencial</span></div>
+    <div (click)="onLogout()" routerLinkActive="router-link-active" class="nav-button"><i
+        class="fa-solid fa-right-from-bracket"></i><span>Cerrar
+        sesión</span>
+    </div>
+
+    <br>
+  </div>
 </nav>
+
+
+
+<!-- <div class="bottom-navbar">
+  <div
+    *ngIf="cargo === 'Comercial 1' || cargo === 'Comercial 2' || cargo === 'Programador' || cargo === 'Gerencia' || cargo === 'Director de Comunicaciones' || cargo === 'Coordinador de Operaciones'"
+    [routerLink]="['/registro']" routerLinkActive="router-link-active" class="nav-button"><i
+      class="fa-solid fa-address-card"></i></div>
+  <div
+    *ngIf="cargo === 'Comercial 1' || cargo === 'Programador' || cargo === 'Gerencia' || cargo === 'Director de Comunicaciones' || cargo === 'Coordinador de Operaciones' || cargo === 'Contabilidad' "
+    [routerLink]="['/compra']" routerLinkActive="router-link-active" class="nav-button"><i
+      class="fa-solid fa-cart-shopping"></i></div>
+  <div
+    *ngIf="cargo === 'Comercial 1' || cargo === 'Comercial 2' || cargo === 'Programador' || cargo === 'Gerencia' || cargo === 'Director de Comunicaciones' || cargo === 'Coordinador de Operaciones' || cargo === 'Contabilidad' "
+    [routerLink]="['/venta']" routerLinkActive="router-link-active" class="nav-button"><i
+      class="fa-solid fa-sack-dollar"></i></div>
+  <div
+    *ngIf="cargo === 'Comercial 1' || cargo === 'Comercial 2' || cargo === 'Programador' || cargo === 'Gerencia' || cargo === 'Director de Comunicaciones' || cargo === 'Coordinador de Operaciones'"
+    [routerLink]="['/modulo-credito']" routerLinkActive="router-link-active" class="nav-button"><i
+      class="fa-solid fa-credit-card"></i></div>
+
+  <div
+    *ngIf="cargo === 'Comercial 1' || cargo === 'Comercial 2' || cargo === 'Programador' || cargo === 'Gerencia' || cargo === 'Director de Comunicaciones' || cargo === 'Coordinador de Operaciones'"
+    [routerLink]="['/cotizaciones']" routerLinkActive="router-link-active" class="nav-button"><i
+      class="fa-solid fa-scroll"></i></div>
+  <div
+    *ngIf="cargo === 'Coordinador de Operaciones' || cargo === 'Programador' || cargo === 'Gerencia' || cargo === 'Coordinador de Operaciones'"
+    [routerLink]="['/tramites']" routerLinkActive="router-link-active" class="nav-button"><i
+      class="fa-solid fa-file-circle-plus"></i></div>
+  <div
+    *ngIf="cargo === 'Contabilidad' || cargo === 'Programador' || cargo === 'Gerencia' || cargo === 'Coordinador de Operaciones'"
+    [routerLink]="['/contabilidad']" routerLinkActive="router-link-active" class="nav-button"><i
+      class="fa-solid fa-calculator"></i></div>
+  <div *ngIf="cargo === 'Programador' || cargo === 'Gerencia'" [routerLink]="['/control-bd']"
+    routerLinkActive="router-link-active" class="nav-button"><i class="fa-solid fa-database"></i></div>
+  <div (click)="onLogout()" class="nav-button"><i class="fas fa-sign-out-alt"></i></div>
+</div> -->

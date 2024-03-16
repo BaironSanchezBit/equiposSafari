@@ -39,8 +39,6 @@ const upload = multer({ storage: storage });
 app.use(cors());
 app.use(express.json());
 
-// Las rutas ahora se manejarán dentro de los archivos de enrutamiento
-// y se montarán en el enrutador `router`
 app.use('/api', router);
 authRoutes(router);
 catalogoRoutes(router, upload);

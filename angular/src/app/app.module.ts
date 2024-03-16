@@ -10,9 +10,6 @@ import { AppComponent } from './app.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { HomeComponent } from './components/home/home.component';
-import { LoginComponent } from './components/login/login.component';
-import { RegisterComponent } from './components/register/register.component';
-import { ProfileComponent } from './components/profile/profile.component';
 import { NosotrosComponent } from './components/nosotros/nosotros.component';
 import { ContactoComponent } from './components/contacto/contacto.component';
 import { CatalogoComponent } from './components/catalogo/catalogo.component';
@@ -24,6 +21,7 @@ import { AdminLoginComponent } from './components/admin-login/admin-login.compon
 import { FormsModule } from '@angular/forms';
 import { ImageModalComponent } from './components/image-modal/image-modal.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { AdminNavbarTopComponent } from './components/admin-navbar-top/admin-navbar-top.component';
 
 @NgModule({
   declarations: [
@@ -31,9 +29,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     NavbarComponent,
     FooterComponent,
     HomeComponent,
-    LoginComponent,
-    RegisterComponent,
-    ProfileComponent,
     NosotrosComponent,
     ContactoComponent,
     CatalogoComponent,
@@ -43,6 +38,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     AdminProductosNavbarComponent,
     AdminLoginComponent,
     ImageModalComponent,
+    AdminNavbarTopComponent,
   ],
   imports: [
     BrowserModule,

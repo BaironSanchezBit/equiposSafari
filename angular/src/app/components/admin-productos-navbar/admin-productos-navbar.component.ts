@@ -13,6 +13,8 @@ export class AdminProductosNavbarComponent {
   loggedIn: boolean = false;
   userData: string = "";
   user: any;
+  navbarOpen = false;
+  datosUser: any;
 
   constructor(private authService: AuthService, private router: Router) { }
 
@@ -21,10 +23,18 @@ export class AdminProductosNavbarComponent {
     if (this.loggedIn) {
       this.user = this.authService.getUser();
     } else {
-      // Agregar esto para establecer loggedIn y user en false
       this.loggedIn = false;
       this.user = null;
     }
+
+    this.authService.getUserDetails().subscribe(
+      user => {
+        this.datosUser = user;
+        console.log(this.datosUser);
+      },
+      error => {
+      }
+    );
   }
 
   onLogout() {
@@ -40,7 +50,6 @@ export class AdminProductosNavbarComponent {
         clearInterval(timerInterval)
       }
     }).then((result) => {
-      /* Read more about handling dismissals below */
       this.authService.logoutUser().subscribe(() => {
         document.cookie = "accessToken=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
         this.router.navigate(['/adminLogin/login'], { replaceUrl: true, queryParams: {} });
@@ -61,9 +70,12 @@ export class AdminProductosNavbarComponent {
         clearInterval(timerInterval)
       }
     }).then((result) => {
-      /* Read more about handling dismissals below */
       this.router.navigate(['/', opcion]);
     });
+  }
+
+  toggleNavbar() {
+    this.navbarOpen = !this.navbarOpen;
   }
 }
 

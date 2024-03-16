@@ -4,9 +4,9 @@
     </div>
     <div class="login-triangle"></div>
     <h2 class="login-header">Iniciar sesión</h2>
-    <form [formGroup]="loginForm" (ngSubmit)="onLogin(loginForm)" class="login-container">
+    <form [formGroup]="loginForm" (ngSubmit)="onLogin()" class="login-container">
         <p>
-            <input type="text" formControlName="nombre" placeholder="Nombre">
+            <input type="text" formControlName="email" placeholder="Correo electrónico">
         </p>
         <p class="password-wrapper">
             <input type="{{ passwordFieldType }}" formControlName="password" placeholder="Contraseña">
@@ -14,7 +14,7 @@
                 <i class="fa" [ngClass]="passwordFieldType === 'password' ? 'fa-eye' : 'fa-eye-slash'"></i>
             </button>
         </p>
-        
+
         <p><input type="submit" value="Ingresar"></p>
         <p class="error-message" *ngIf="loginError">{{ loginError }}</p>
     </form>

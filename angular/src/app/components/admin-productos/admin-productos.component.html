@@ -4,12 +4,12 @@
     <div class="sectionc d-flex flex-column">
         <div class="py-4">
                 <ul class="nav nav-pills">
-                    <li class="nav-item dropdown btn btn-dark">
+                    <li class="nav-item dropdown btn btn-light">
                         <a class="colorText nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
                             aria-expanded="false">
-                            <label class="fw-bold text-light"><i class="fa-sharp fa-solid fa-filter"></i> Filtrar</label>
+                            <label class="fw-bold text-black"><i class="fa-sharp fa-solid fa-filter"></i> Filtrar</label>
                         </a>
-                        <ul class="dropdown-menu dropdown-menu-dark">
+                        <ul class="dropdown-menu dropdown-menu">
                             <li><a class="dropdown-item" (click)="redirectToFiltro('Hornos')">Hornos</a></li>
                             <li><a class="dropdown-item" (click)="redirectToFiltro('Mojadoras')">Mojadoras</a></li>
                             <li><a class="dropdown-item" (click)="redirectToFiltro('Batidoras')">Batidoras</a></li>
@@ -37,9 +37,9 @@
                 </ul>
         </div>
 
-        
 
-        <table class="table table-dark table-striped-columns">
+
+        <table class="table table-striped">
             <thead>
                 <tr style="font-family: 'Roboto Condensed', sans-serif; font-size: 20px;">
                     <th class="text-center "> <i class="fa-regular fa-id-card"></i> ID</th>
@@ -56,11 +56,11 @@
                     <td class="text-center">${{item.precioComercial}}</td>
                     <td class="text-center">${{item.precio}}</td>
                     <td class="text-center">
-                        <button class="btn btn-dark col-5 border-0 mx-1" [routerLink]="['/adminProductos/update/', item._id]"><i class="
+                        <button class="btn btn-light col-5 border-0 mx-1" [routerLink]="['/adminProductos/update/', item._id]"><i class="
                                 fa-solid
                                 fa-pen-to-square" style="color: #ff7b00;"></i>
                         </button>
-                        <button class="btn btn-dark col-5 border-0 mx-1" (click)="eliminarCatalogoPorId(item._id)"><i
+                        <button class="btn btn-light col-5 border-0 mx-1" (click)="eliminarCatalogoPorId(item._id)"><i
                                 class="fa-solid
                                 fa-trash" style="color: #ff0000;"></i>
                         </button>

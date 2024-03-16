@@ -2,10 +2,29 @@ const User = require('./auth.dao');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 const SECRET_KEY = 'secretkey123456';
+const axios = require('axios');
+const fs = require('fs');
+const path = require('path');
 
 exports.getUserById = async (req, res, next) => {
     try {
-        const users = await User.findOne({});
+        const user = await User.findById(req.params.id); // Buscar al usuario por su ID
+        if (!user) {
+            return res.status(404).json({ success: false, message: 'User not found' }); // Si el usuario no se encuentra, devuelve un error
+        }
+        res.json(user); // Devuelve la información del usuario
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({
+            success: false,
+            message: 'Server error'
+        });
+    }
+};
+
+exports.getAllUsers = async (req, res, next) => {
+    try {
+        const users = await User.find({});
         res.json(users);
     } catch (error) {
         console.error(error);
@@ -50,53 +69,79 @@ exports.comparePassword = async (req, res, next) => {
     }
 };
 
-// Middleware de autenticación
 exports.authenticateToken = (req, res, next) => {
-    // Obtiene el token de acceso de la cookie
-    const accessToken = req.cookies.accessToken;
+    const authHeader = req.headers.authorization;
+    const token = authHeader && authHeader.split(' ')[1];
 
-    if (!accessToken) {
+    if (!token) {
         return res.status(401).json({ success: false, message: 'No token provided' });
     }
 
     try {
-        // Verifica el token de acceso y obtiene su payload (usuario ID)
-        const decoded = jwt.verify(accessToken, SECRET_KEY);
-        req.userId = decoded.id; // Añade el ID del usuario al objeto req para que esté disponible en las rutas protegidas
-        next(); // Continúa al siguiente middleware o controlador
+        const decoded = jwt.verify(token, SECRET_KEY);
+        req.userId = decoded.id;
+        next();
     } catch (error) {
         return res.status(403).json({ success: false, message: 'Invalid token' });
     }
 };
 
-exports.createUser = async (req, res, next) => {
-    const newUser = {
-        nombre: req.body.nombre,
-        apellido: req.body.apellido,
-        telefono: req.body.telefono,
-        email: req.body.email,
-        password: bcrypt.hashSync(req.body.password)
-    };
+exports.ensureAdmin = (req, res, next) => {
+    if (req.user && req.user.role === 'Admin') {
+        return next();
+    } else {
+        return res.status(403).json({ success: false, message: 'Access denied: Admins only.' });
+    }
+};
+
+exports.datosCiudades = async (req, res, next) => {
+    try {
+        const response = await axios.get('https://api-colombia.com/api/v1/City');
+
+        const departamentosExcluidos = [];
+
+        const datosFiltrados = response.data.filter(ciudad => !departamentosExcluidos.includes(ciudad.departamento));
+
+        res.json(datosFiltrados);
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+};
+
+exports.datosDepartamentos = async (req, res, next) => {
+    try {
+        const response = await axios.get('https://api-colombia.com/api/v1/Department');
+
+        const departamentosExcluidos = [];
+
+        const datosFiltrados = response.data.filter(ciudad => !departamentosExcluidos.includes(ciudad.departamento));
+
+        res.json(datosFiltrados);
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+};
+
+exports.createUserWithProfileImage = async (req, res) => {
+    const { email, nombre, telefono, password, cargo, roles } = req.body;
+
+    if (!req.file) {
+        return res.status(400).json({ success: false, message: 'No se ha subido ningún archivo o el formato no es válido.' });
+    }
+
+    const hashedPassword = bcrypt.hashSync(password);
+    const newUser = { email, nombre, telefono, password: hashedPassword, cargo, role: roles };
 
     try {
         const user = await User.create(newUser);
-        const expiresIn = 24 * 60 * 60;
-        const accessToken = jwt.sign({ id: user.id }, SECRET_KEY, { expiresIn: expiresIn });
 
-        // Crea una cookie con el token de acceso y lo envía en la respuesta
-        res.cookie('accessToken', accessToken, { httpOnly: true, maxAge: expiresIn * 1000 });
+        user.image.path = req.file.path;
+        user.image.purpose = 'profile';
+        await user.save();
+
         res.json({
             success: true,
-            message: 'User created successfully!',
-            data: {
-                id: user._id,
-                nombre: user.nombre,
-                apellido: user.apellido,
-                telefono: user.telefono,
-                email: user.email,
-                accessToken: accessToken,
-                expiresIn: expiresIn
-            }
+            message: 'User created successfully with profile image!',
         });
     } catch (error) {
         if (error.code === 11000) {
@@ -105,6 +150,7 @@ exports.createUser = async (req, res, next) => {
                 message: 'Email already exists'
             });
         } else {
+            console.error(error);
             res.status(500).json({
                 success: false,
                 message: 'Server error'
@@ -113,7 +159,26 @@ exports.createUser = async (req, res, next) => {
     }
 };
 
-exports.loginUser = async (req, res, next) => {
+exports.getUserImage = async (req, res) => {
+    try {
+        const user = await User.findById(req.params.id);
+        let imagePath;
+
+        if (user && user.image && user.image.path && fs.existsSync(path.join(__dirname, '..', user.image.path))) {
+            imagePath = path.join(__dirname, '..', user.image.path);
+        } else {
+            imagePath = path.join(__dirname, '..', 'uploads', 'user.png');
+        }
+
+        res.sendFile(imagePath);
+
+    } catch (error) {
+        console.error(error);
+        res.status(500).send('Server error');
+    }
+};
+
+exports.loginUserNameAdmin = async (req, res, next) => {
     const userData = {
         email: req.body.email,
         password: req.body.password
@@ -129,20 +194,13 @@ exports.loginUser = async (req, res, next) => {
         } else {
             const resultPassword = bcrypt.compareSync(userData.password, user.password);
             if (resultPassword) {
-                const expiresIn = 24 * 60 * 60;
-                const accessToken = jwt.sign({ id: user.id }, SECRET_KEY, { expiresIn: expiresIn });
+                const expiresIn = 60 * 60 * 24; // 24 horas en segundos
+                const accessToken = jwt.sign({ id: user.id, role: user.role }, SECRET_KEY, { expiresIn: expiresIn });
 
-                // Crea una cookie con el token de acceso y lo envía en la respuesta
-                res.cookie('accessToken', accessToken, { httpOnly: true, maxAge: expiresIn * 1000 });
                 res.json({
                     success: true,
                     message: 'Logged in successfully!',
                     data: {
-                        id: user._id,
-                        nombre: user.nombre,
-                        apellido: user.apellido,
-                        telefono: user.telefono,
-                        email: user.email,
                         accessToken: accessToken,
                         expiresIn: expiresIn
                     }
@@ -165,24 +223,23 @@ exports.loginUser = async (req, res, next) => {
 
 exports.loginUserName = async (req, res, next) => {
     const userData = {
-        nombre: req.body.nombre,
+        email: req.body.email,
         password: req.body.password
     };
 
     try {
-        const user = await User.findOne({ nombre: userData.nombre}).exec();
+        const user = await User.findOne({ email: userData.email }).exec();
         if (!user) {
             res.status(409).json({
                 success: false,
                 message: 'Something is wrong'
             });
-        } else { 
+        } else {
             const resultPassword = bcrypt.compareSync(userData.password, user.password);
             if (resultPassword) {
-                const expiresIn = 15 * 60;
+                const expiresIn = 60 * 60 * 24;
                 const accessToken = jwt.sign({ id: user.id }, SECRET_KEY, { expiresIn: expiresIn });
 
-                // Crea una cookie con el token de acceso y lo envía en la respuesta
                 res.json({
                     success: true,
                     message: 'Logged in successfully!',
@@ -208,7 +265,6 @@ exports.loginUserName = async (req, res, next) => {
 };
 
 exports.logoutUser = (req, res) => {
-    // Elimina la cookie que contiene el token de acceso
     res.clearCookie('user');
     res.status(200).json({ success: true, message: 'Logged out successfully!' });
 };
@@ -216,10 +272,10 @@ exports.logoutUser = (req, res) => {
 exports.updateUser = async (req, res, next) => {
     try {
         const { id } = req.params;
-        const { nombre } = req.body;
+        const { email, nombre, telefono, password, cargo, role } = req.body;
 
-        // Verifica si el usuario existe
         const user = await User.findById(id);
+
         if (!user) {
             return res.status(404).json({
                 success: false,
@@ -227,22 +283,60 @@ exports.updateUser = async (req, res, next) => {
             });
         }
 
-        // Actualiza el nombre
-        if (nombre) {
-            user.nombre = nombre;
+        if (password && password !== user.password) {
+            const hashedPassword = bcrypt.hashSync(password);
+            user.password = hashedPassword;
         }
 
-        // Guarda los cambios en la base de datos
+
+        user.email = email;
+        user.nombre = nombre;
+        user.telefono = telefono;
+        user.cargo = cargo;
+        user.role = role.split(',');
+        
+        if (req.file) {
+            if (user.image && user.image.path) {
+                fs.unlinkSync(user.image.path);
+            }
+
+            user.image = {
+                path: req.file.path,
+                purpose: 'profile'
+            };
+        }
+
         await user.save();
 
         res.json({
             success: true,
             message: 'User updated successfully',
-            data: {
-                id: user._id,
-                nombre: user.nombre
-            }
+            data: user
         });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({
+            success: false,
+            message: 'Server error'
+        });
+    }
+};
+
+exports.verifyAdminRole = async (req, res, next) => {
+    try {
+        const { userId } = req.body;
+
+        const user = await User.findById(userId);
+
+        if (!user) {
+            return res.status(404).json({ success: false, message: 'User not found' });
+        }
+
+        if (user.cargo !== 'Gerencia' && user.cargo !== 'Programador') {
+            return res.status(403).json({ success: false, message: 'Access denied. Only Admins can access this endpoint.' });
+        }
+
+        next();
 
     } catch (error) {
         console.error(error);
@@ -253,3 +347,31 @@ exports.updateUser = async (req, res, next) => {
     }
 };
 
+exports.deleteUser = async (req, res, next) => {
+    try {
+        const { id } = req.body;
+
+        const user = await User.findById(id);
+        if (!user) {
+            return res.status(404).json({ success: false, message: 'User not found' });
+        }
+
+        if (user.image && user.image.path) {
+            fs.unlinkSync(user.image.path);
+        }
+
+        const result = await User.findByIdAndDelete(id);
+        if (!result) {
+            return res.status(404).json({ success: false, message: 'User not found' });
+        }
+
+        res.status(200).json({ success: true, message: 'User deleted successfully' });
+
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({
+            success: false,
+            message: 'Server error'
+        });
+    }
+};
