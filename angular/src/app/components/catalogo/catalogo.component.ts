@@ -67,6 +67,24 @@ export class CatalogoComponent implements AfterViewInit {
     };
   }
 
+  formatSalary(salary: any): string {
+    if (typeof salary === 'string' && salary.includes('$')) {
+      return salary;
+    }
+
+    let numberSalary = typeof salary === 'string' ? parseFloat(salary) : salary;
+
+    if (isNaN(numberSalary) || numberSalary === null) {
+      return '-';
+    }
+
+    return new Intl.NumberFormat('es-CO', {
+      style: 'currency',
+      currency: 'COP',
+      minimumFractionDigits: 0,
+      maximumFractionDigits: 0
+    }).format(numberSalary);
+  }
 
   onCategoriaChange(categoria: string) {
     this.isLoading2 = true;

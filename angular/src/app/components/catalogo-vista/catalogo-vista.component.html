@@ -23,10 +23,9 @@
             <p class="pSafari">SAFARIMAQUINASDESEGUNDA</p>
             <p class="pNombre"> {{ item.nombre }}</p>
             <span class="antes">Precio comercial
-                <span class="priceComercial">${{ item.precioComercial }}</span>
+                <span class="priceComercial">{{formatSalary(item.precioComercial)}}</span>
             </span>
-            <p class="pPrecio fw-bold fs-5"><span>En venta </span> ${{
-                item.precio}}</p>
+            <p class="pPrecio fw-bold fs-5"><span>En venta </span>{{formatSalary(item.precio)}}</p>
             <i class="desC fw-bold">DESCRIPCIÓN</i>
             <p class="pDes pDescripcion">{{ item.descripcion }}</p>
         </div>

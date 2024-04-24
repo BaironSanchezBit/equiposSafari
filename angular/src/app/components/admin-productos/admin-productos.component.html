@@ -2,39 +2,51 @@
 
 <section class="sectionBody">
     <div class="sectionc d-flex flex-column">
-        <div class="py-4">
-                <ul class="nav nav-pills">
-                    <li class="nav-item dropdown btn btn-light">
-                        <a class="colorText nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
-                            aria-expanded="false">
-                            <label class="fw-bold text-black"><i class="fa-sharp fa-solid fa-filter"></i> Filtrar</label>
-                        </a>
-                        <ul class="dropdown-menu dropdown-menu">
-                            <li><a class="dropdown-item" (click)="redirectToFiltro('Hornos')">Hornos</a></li>
-                            <li><a class="dropdown-item" (click)="redirectToFiltro('Mojadoras')">Mojadoras</a></li>
-                            <li><a class="dropdown-item" (click)="redirectToFiltro('Batidoras')">Batidoras</a></li>
-                            <li><a class="dropdown-item" (click)="redirectToFiltro('Empacadoras')">Empacadoras</a></li>
-                            <li><a class="dropdown-item" (click)="redirectToFiltro('Multiformadoras')">Multiformadoras</a></li>
-                            <li><a class="dropdown-item" (click)="redirectToFiltro('Divisoras de pan')">Divisoras de pan</a></li>
-                            <li><a class="dropdown-item" (click)="redirectToFiltro('Tajadoras de pan')">Tajadoras de pan</a></li>
-                            <li><a class="dropdown-item" (click)="redirectToFiltro('Cortadoras de masa')">Cortadoras de masa</a></li>
-                            <li><a class="dropdown-item" (click)="redirectToFiltro('Cuartos de crecimiento')">Cuartos de crecimiento</a></li>
-                            <li><a class="dropdown-item" (click)="redirectToFiltro('Bandejas nacionales')">Bandejas nacionales</a></li>
-                            <li><a class="dropdown-item" (click)="redirectToFiltro('Bandejas importadas')">Bandejas importadas</a></li>
-                            <li><a class="dropdown-item" (click)="redirectToFiltro('Cilindro automatico')">Cilindro automatico</a></li>
-                            <li><a class="dropdown-item" (click)="redirectToFiltro('Maquinas Galleteras')">Maquinas Galleteras</a></li>
-                            <li>
-                                <hr class="dropdown-divider">
-                            </li>
-                            <li><a class="dropdown-item" (click)="redirectToFiltro('Repuestos para toda Maquinaria')">Repuestos para toda Maquinaria</a></li>
-                            <li><a class="dropdown-item" (click)="redirectToFiltro('Otros')">Otros</a></li>
-                            <li>
-                                <hr class="dropdown-divider">
-                            </li>
-                            <li><a class="dropdown-item" routerLink="/adminProductos/Todo">Todo</a></li>
-                        </ul>
-                    </li>
-                </ul>
+        <div class="py-4 d-flex justify-content-between align-items-center">
+            <ul class="nav nav-pills">
+                <li class="nav-item dropdown btn btn-light">
+                    <a class="colorText nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                        aria-expanded="false">
+                        <label class="fw-bold text-black"><i class="fa-sharp fa-solid fa-filter"></i> Filtrar</label>
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu">
+                        <li><a class="dropdown-item" (click)="redirectToFiltro('Hornos')">Hornos</a></li>
+                        <li><a class="dropdown-item" (click)="redirectToFiltro('Mojadoras')">Mojadoras</a></li>
+                        <li><a class="dropdown-item" (click)="redirectToFiltro('Batidoras')">Batidoras</a></li>
+                        <li><a class="dropdown-item" (click)="redirectToFiltro('Empacadoras')">Empacadoras</a></li>
+                        <li><a class="dropdown-item" (click)="redirectToFiltro('Multiformadoras')">Multiformadoras</a>
+                        </li>
+                        <li><a class="dropdown-item" (click)="redirectToFiltro('Divisoras de pan')">Divisoras de pan</a>
+                        </li>
+                        <li><a class="dropdown-item" (click)="redirectToFiltro('Tajadoras de pan')">Tajadoras de pan</a>
+                        </li>
+                        <li><a class="dropdown-item" (click)="redirectToFiltro('Cortadoras de masa')">Cortadoras de
+                                masa</a></li>
+                        <li><a class="dropdown-item" (click)="redirectToFiltro('Cuartos de crecimiento')">Cuartos de
+                                crecimiento</a></li>
+                        <li><a class="dropdown-item" (click)="redirectToFiltro('Bandejas nacionales')">Bandejas
+                                nacionales</a></li>
+                        <li><a class="dropdown-item" (click)="redirectToFiltro('Bandejas importadas')">Bandejas
+                                importadas</a></li>
+                        <li><a class="dropdown-item" (click)="redirectToFiltro('Cilindro automatico')">Cilindro
+                                automatico</a></li>
+                        <li><a class="dropdown-item" (click)="redirectToFiltro('Maquinas Galleteras')">Maquinas
+                                Galleteras</a></li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+                        <li><a class="dropdown-item"
+                                (click)="redirectToFiltro('Repuestos para toda Maquinaria')">Repuestos para toda
+                                Maquinaria</a></li>
+                        <li><a class="dropdown-item" (click)="redirectToFiltro('Otros')">Otros</a></li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+                        <li><a class="dropdown-item" routerLink="/adminProductos/Todo">Todo</a></li>
+                    </ul>
+                </li>
+            </ul>
+            <button type="button" class="btn btn-success" [routerLink]="['/adminProductosCrear']">Nuevo Producto</button>
         </div>
 
 
@@ -49,14 +61,15 @@
                     <th class="text-center "><i class="fa-solid fa-location-arrow"></i> Acción </th>
                 </tr>
             </thead>
-            <tbody >
+            <tbody>
                 <tr class="col-12" style="font-family: 'Poppins', sans-serif;" *ngFor="let item of items">
                     <td class="text-center" rowspan="1">{{item._id}}</td>
                     <td class="text-center col-md-6" rowspan="1">{{item.nombre}}</td>
-                    <td class="text-center">${{item.precioComercial}}</td>
-                    <td class="text-center">${{item.precio}}</td>
+                    <td class="text-center">{{formatSalary(item.precioComercial)}}</td>
+                    <td class="text-center">{{formatSalary(item.precio)}}</td>
                     <td class="text-center">
-                        <button class="btn btn-light col-5 border-0 mx-1" [routerLink]="['/adminProductos/update/', item._id]"><i class="
+                        <button class="btn btn-light col-5 border-0 mx-1"
+                            [routerLink]="['/adminProductos/update/', item._id]"><i class="
                                 fa-solid
                                 fa-pen-to-square" style="color: #ff7b00;"></i>
                         </button>

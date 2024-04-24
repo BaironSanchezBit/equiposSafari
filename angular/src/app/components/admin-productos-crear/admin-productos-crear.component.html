@@ -7,8 +7,8 @@
       <form class="sectionCreate" [formGroup]="formularioCatalogo"
         (ngSubmit)="onSubmit()" enctype="multipart/form-data">
         <div class="form-group">
-          <label class="fw-bold text-light">Tipo de máquina</label>
-            <select name="tipoMaquina" id="tipoMaquina" formControlName="tipoMaquina" class="form-select bg-dark text-white" style="font-family: 'Poppins', sans-serif;" aria-label="Default select example">
+          <label class="fw-bold">Tipo de máquina</label>
+            <select name="tipoMaquina" id="tipoMaquina" formControlName="tipoMaquina" class="form-select" style="font-family: 'Poppins', sans-serif;" aria-label="Default select example">
               <option selected disabled value="">Seleccione</option>
               <option value="Hornos">Hornos</option>
               <option value="Mojadoras">Mojadoras</option>
@@ -28,38 +28,38 @@
           </select>
         </div>
         <div class="form-group">
-          <label for="nombre" class="fw-bold text-light">Nombre</label>
-          <input type="text" class="form-control bg-dark text-white" id="nombre"
+          <label for="nombre" class="fw-bold">Nombre</label>
+          <input type="text" class="form-control" id="nombre"
             formControlName="nombre">
         </div>
         <div class="form-group">
-          <label for="descripcion" class="fw-bold text-light">Descripción</label>
-          <textarea class="form-control bg-dark text-white" id="descripcion"
+          <label for="descripcion" class="fw-bold">Descripción</label>
+          <textarea class="form-control" id="descripcion"
             formControlName="descripcion"></textarea>
         </div>
         <div class="form-group">
-          <label for="precioComercial" class="fw-bold text-light">Precio Comercial</label>
-          <input type="text" class="form-control bg-dark text-white" id="precioComercial"
-            formControlName="precioComercial">
+          <label for="precioComercial" class="fw-bold">Precio Comercial</label>
+          <input type="text" class="form-control" id="precioComercial"
+            formControlName="precioComercial" (input)="onCurrencyInput2($event)">
         </div>
         <div class="form-group">
-          <label for="precio" class="fw-bold text-light">Precio Ahora</label>
-          <input type="text" class="form-control bg-dark text-white" id="precio"
-            formControlName="precio">
+          <label for="precio" class="fw-bold">Precio Ahora</label>
+          <input type="text" class="form-control" id="precio"
+            formControlName="precio" (input)="onCurrencyInput2($event)">
         </div>
         <div class="form-group">
-          <label for="estado" class="fw-bold text-light">Estado</label>
-          <select name="estado" id="estado" formControlName="estado" class="form-control bg-dark text-white" style="font-family: 'Poppins', sans-serif;">
+          <label for="estado" class="fw-bold">Estado</label>
+          <select name="estado" id="estado" formControlName="estado" class="form-control" style="font-family: 'Poppins', sans-serif;">
             <option selected disabled value="">Seleccione</option>
             <option value="Disponible">Disponible</option>
             <option value="Vendido">Vendido</option>
           </select>
         </div>
         <div class="form-group">
-          <label for="imagenes" class="fw-bold text-light">Imagenes</label>
+          <label for="imagenes" class="fw-bold">Imagenes</label>
           <div class="form-group d-flex">
-            <input type="file" class="form-control bg-dark text-white" id="imagenes" name="imagenes" accept="image/*" multiple>
-            <button class="btn btn-success" type="button" id="inputGroupFileAddon04" (click)="agregarImagenes()">Agregar</button>
+            <input type="file" class="form-control" id="imagenes" name="imagenes" accept="image/*" multiple>
+            <button class="btn btn-success" type="button" id="inputGroupFileAddon04" (click)="agregarIjwjwmagenes()">Agregar</button>
           </div>
         </div>
         <button type="submit" class="btn btn-success w-100 mt-3">Guardar</button>

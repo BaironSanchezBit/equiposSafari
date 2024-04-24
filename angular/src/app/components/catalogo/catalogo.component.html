@@ -293,8 +293,7 @@
               <i class="fa-regular fa-star"></i>
               <i class="fa-regular fa-star"></i>
             </div>
-            <span class="precio">${{ item.precio }} <span class="priceComercial">${{ item.precioComercial
-                }}</span></span>
+            <span class="precio">{{formatSalary(item.precio)}} <span class="priceComercial">{{formatSalary(item.precioComercial)}}</span></span>
             <button type="button" class="verMas" [routerLink]="['/catalogos/id/', item._id]">VER MÁS</button>
           </div>
         </div>
@@ -309,8 +308,7 @@
                 [ngClass]="{'spanEstadoDisponible': item.estado === 'Disponible', 'spanEstadoVendido': item.estado === 'Vendido'}">{{item.estado}}</span>
             </p>
             <div class="d-flex flex-column justify-content-start">
-              <span class="precio">${{ item.precio }} <span class="priceComercial">${{ item.precioComercial
-                  }}</span></span>
+              <span class="precio">{{formatSalary(item.precio)}} <span class="priceComercial">{{formatSalary(item.precioComercial)}}</span></span>
             </div>
             <button class="btn btn-danger">CONTACTAR</button>
           </div>

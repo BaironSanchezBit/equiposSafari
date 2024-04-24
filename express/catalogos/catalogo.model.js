@@ -26,12 +26,12 @@ const catalogoSchema = new Schema(
       trim: true,
     },
     precioComercial: {
-      type: String,
+      type: Number,
       required: true,
       trim: true,
     },
     precio: {
-      type: String,
+      type: Number,
       required: true,
       trim: true,
     },

@@ -50,7 +50,7 @@
   <div id="nav-content">
     <div [routerLink]="['/tablero']" routerLinkActive="router-link-active" class="nav-button"><i
         class="fa-solid fa-address-card"></i><span>Tablero</span></div>
-    <div [routerLink]="['/inventario']" routerLinkActive="router-link-active" class="nav-button"><i
+    <div [routerLink]="['/adminProductos/Todo']" routerLinkActive="router-link-active" class="nav-button"><i
         class="fa-solid fa-cart-shopping"></i><span>Inventario</span></div>
     <div id="nav-content-highlight"></div>
   </div><input id="nav-footer-toggle" type="checkbox" />
@@ -67,39 +67,11 @@
       </div>
       <hr />
     </div>
-    <div [routerLink]="['/registro']" routerLinkActive="router-link-active" class="nav-button"><i
-        class="fa-solid fa-address-card"></i><span>Registro</span></div>
-    <div [routerLink]="['/compra']" routerLinkActive="router-link-active" class="nav-button"><i
-        class="fa-solid fa-cart-shopping"></i><span>Compra</span></div>
-    <div [routerLink]="['/venta']" routerLinkActive="router-link-active" class="nav-button"><i
-        class="fa-solid fa-sack-dollar"></i><span>Ventas</span></div>
-
-    <div [routerLink]="['/alistamiento']" routerLinkActive="router-link-active" class="nav-button"><i
-        class="fa-solid fa-list-check"></i><span>Alistamiento</span></div>
-
-    <div [routerLink]="['/orden-trabajo']" routerLinkActive="router-link-active" class="nav-button"><i
-        class="fa-solid fa-screwdriver-wrench"></i><span>Orden de Trabajo</span></div>
-
-    <div
-      [routerLink]="['/modulo-credito']" routerLinkActive="router-link-active" class="nav-button"><i
-        class="fa-solid fa-credit-card"></i><span>Crédito</span></div>
-
-    <div
-      [routerLink]="['/cotizaciones']" routerLinkActive="router-link-active" class="nav-button"><i
-        class="fa-solid fa-scroll"></i><span>Cotizaciones</span></div>
-    <div
-      [routerLink]="['/tramites']" routerLinkActive="router-link-active" class="nav-button"><i
-        class="fa-solid fa-file-circle-plus"></i><span>Trámites</span></div>
-    <div
-      [routerLink]="['/contabilidad']" routerLinkActive="router-link-active" class="nav-button"><i
-        class="fa-solid fa-calculator"></i><span>Contabilidad</span></div>
-    <div [routerLink]="['/control-bd']"
-      routerLinkActive="router-link-active" class="nav-button"><i class="fa-solid fa-database"></i><span>Bases de
-        datos</span>
-    </div>
-    <div
-      routerLinkActive="router-link-active" class="nav-button"><i class="fa-solid fa-chart-simple"></i><span>Cuadro
-        Gerencial</span></div>
+    <div [routerLink]="['/tablero']" routerLinkActive="router-link-active" class="nav-button"><i
+        class="fa-solid fa-address-card"></i><span>Tablero</span></div>
+    <div [routerLink]="['/adminProductos/Todo']" routerLinkActive="router-link-active" class="nav-button"><i
+        class="fa-solid fa-cart-shopping"></i><span>Inventario</span></div>
+    <div id="nav-content-highlight"></div>
     <div (click)="onLogout()" routerLinkActive="router-link-active" class="nav-button"><i
         class="fa-solid fa-right-from-bracket"></i><span>Cerrar
         sesión</span>

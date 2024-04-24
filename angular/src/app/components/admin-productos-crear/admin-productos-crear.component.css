@@ -2,17 +2,18 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
 
 .sectionBody {
-  background-color: #5a5a5a;
+  background-color: #F8F8F8;
   height: 94.2vh;
+  padding-left: 12%;
 }
 
 .sectionMedia {
-  background-color: #5a5a5a;
+  background-color: #F8F8F8;
   padding: 1% 5% 1%;
 }
 
 .rowS {
-  background-color: #5a5a5a;
+  background-color: #F8F8F8;
 }
 
 .imgSelected {
@@ -54,6 +55,11 @@
 
 /* Extra small devices (phones, 600px and down) */
 @media only screen and (max-width: 600px) {
+  .sectionBody{
+    padding-left: 0 !important;
+  }
+  
+
   .sectionMedia {
     display: flex;
     flex-direction: column;
@@ -140,6 +146,7 @@
 
 /* Extra large devices (large laptops and desktops, 1200px and up) */
 @media only screen and (min-width: 1200px) {
+
   .sectionMedia {
     display: flex !important;
     flex-direction: row;

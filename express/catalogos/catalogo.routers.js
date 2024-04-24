@@ -8,5 +8,5 @@ module.exports = (router, upload) => {
     router.get('/adminProductos/:opcion', Catalogo.obtenerCatalogoPorOpcion);
     router.delete('/adminProductos/delete/:id', Catalogo.deleteCatalogoPorId);
     router.get('/adminProductos/update/:id', Catalogo.obtenerCatalogoPorId);
-    router.put('/adminProductos/updateCatalogo/:id', Catalogo.updateCatalogoPorId)
+    router.put('/adminProductos/updateCatalogo/:id', upload.array('imagenes'), Catalogo.updateCatalogoPorId);
 }

@@ -22,7 +22,7 @@
 }
 
 .router-link-active {
-  background-color: #0F1922;
+  background-color: #ebebeb;
   color: white;
   border-radius: 10px 0px 0px 10px;
 }
@@ -31,7 +31,7 @@
   display: none;
   justify-content: center;
   align-items: center;
-  background-color: #63656A;
+  background-color: #ffffff;
   position: fixed;
   bottom: 0;
   left: 0;
@@ -41,7 +41,7 @@
 
 .navbar-toggler {
   display: none;
-  color: white;
+  color: rgb(0, 0, 0);
 }
 
 .navbar-menu {
@@ -52,8 +52,8 @@
   left: -100%;
   bottom: 0;
   width: 100%;
-  background: #63656A;
-  justify-content: center;
+  background: #ffffff;
+  justify-content: flex-start;
   align-items: center;
   transition: left 0.5s;
   z-index: 1000;
@@ -69,7 +69,7 @@
   right: 15px;
   border: none;
   background: transparent;
-  color: white;
+  color: rgb(0, 0, 0);
   font-size: 30px;
   cursor: pointer;
 }
@@ -182,8 +182,6 @@
   .nav-button span {
     font-size: 1.3rem;
   }
-
-
 
   .nav-button .fa-solid {
     width: 50px;

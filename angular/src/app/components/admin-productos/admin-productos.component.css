@@ -15,6 +15,10 @@
 /* Extra small devices (phones, 600px and down) */
 @media only screen and (max-width: 992px) {
 
+  .sectionBody{
+    padding-left: 0 !important;
+  }
+
   td:nth-child(1),
   th:nth-child(1),
   td:nth-child(3),

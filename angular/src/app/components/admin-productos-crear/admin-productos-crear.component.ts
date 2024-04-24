@@ -3,6 +3,8 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { CatalogosService } from '../../services/catalogos.service';
 import Swal from 'sweetalert2';
 import { ActivatedRoute } from '@angular/router';
+import { CurrencyService } from 'src/app/services/currency.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-admin-productos-crear',
@@ -17,13 +19,13 @@ export class AdminProductosCrearComponent {
   id: string | null = "";
   titulo = 'Creación de Catalogo';
 
-  constructor(private route: ActivatedRoute, private fb: FormBuilder, private catalogosService: CatalogosService, private cd: ChangeDetectorRef) {
+  constructor(private router: Router, private route: ActivatedRoute, private fb: FormBuilder, private catalogosService: CatalogosService, private cd: ChangeDetectorRef, private currencyService: CurrencyService) {
     this.formularioCatalogo = this.fb.group({
       tipoMaquina: ['', Validators.required],
       nombre: ['', Validators.required],
       descripcion: ['', Validators.required],
-      precioComercial: ['', Validators.required],
-      precio: ['', Validators.required],
+      precioComercial: ['$ 0', Validators.required],
+      precio: ['$ 0', Validators.required],
       estado: ['', Validators.required],
       imagenes: [null]
     });
@@ -49,12 +51,14 @@ export class AdminProductosCrearComponent {
   accionSolicitada() {
     if (this.id !== null) {
       this.catalogosService.obtenerCatalogoPorId(this.id).subscribe((data: any) => {
+
+
         this.formularioCatalogo.setValue({
           tipoMaquina: data.tipoMaquina,
           nombre: data.nombre,
           descripcion: data.descripcion,
-          precioComercial: data.precioComercial,
-          precio: data.precio,
+          precioComercial: this.formatSalary(data.precioComercial),
+          precio: this.formatSalary(data.precio),
           estado: data.estado,
           imagenes: data.imagenes
         });
@@ -65,6 +69,8 @@ export class AdminProductosCrearComponent {
   }
 
   agregarImagenes() {
+    this.imagenesSeleccionadas = []
+
     const input = document.getElementById('imagenes') as HTMLInputElement;
     if (input.files) {
       const files: FileList = input.files;
@@ -74,7 +80,7 @@ export class AdminProductosCrearComponent {
         reader.onload = () => {
           if (this.imagenesSeleccionadas) {
             this.imagenesSeleccionadas.push(reader.result as string);
-            this.cd.detectChanges(); // Agregar detección de cambios
+            this.cd.detectChanges();
           }
         };
       }
@@ -90,13 +96,18 @@ export class AdminProductosCrearComponent {
     formData.append('tipoMaquina', this.formularioCatalogo.get('tipoMaquina')?.value);
     formData.append('nombre', this.formularioCatalogo.get('nombre')?.value);
     formData.append('descripcion', this.formularioCatalogo.get('descripcion')?.value);
-    formData.append('precioComercial', this.formularioCatalogo.get('precioComercial')?.value);
-    formData.append('precio', this.formularioCatalogo.get('precio')?.value);
+    formData.append('precioComercial', this.desformatearMoneda(this.formularioCatalogo.get('precioComercial')?.value).toString());
+    formData.append('precio', this.desformatearMoneda(this.formularioCatalogo.get('precio')?.value).toString());
     formData.append('estado', this.formularioCatalogo.get('estado')?.value);
 
     for (let i = 0; i < this.imagenesSeleccionadas.length; i++) {
-      const blob = this.dataURItoBlob(this.imagenesSeleccionadas[i]);
-      formData.append('imagenes', blob, `image-${i + 1}`);
+      const imagen = this.imagenesSeleccionadas[i];
+      if (this.esURIdeDatos(imagen)) {
+        const blob = this.dataURItoBlob(imagen);
+        formData.append('imagenes', blob, `image-${i + 1}`);
+      }else{
+        console.log('Manejando una URL de imagen:', imagen);  
+      }
     }
 
     if (this.selectedFiles) {
@@ -109,12 +120,12 @@ export class AdminProductosCrearComponent {
       this.catalogosService.updateCatalogoPorId(this.id, formData).subscribe((data) => {
         Swal.fire({
           icon: 'success',
-          title: 'Catálogo creado',
-          text: 'El catálogo ha sido creado exitosamente',
+          title: 'Catálogo actualizado',
+          text: 'El catálogo ha sido actualizado exitosamente',
           showConfirmButton: false,
           timer: 2000
         });
-        this.formularioCatalogo.reset();
+        this.router.navigate(['/adminProductos/todo']);
         this.selectedFiles = null;
         this.imagenesSeleccionadas = [];
       }, (err: any) => {
@@ -136,7 +147,7 @@ export class AdminProductosCrearComponent {
             showConfirmButton: false,
             timer: 2000
           });
-          this.formularioCatalogo.reset();
+          this.router.navigate(['/adminProductos/todo']);
           this.selectedFiles = null;
           this.imagenesSeleccionadas = [];
         },
@@ -153,16 +164,79 @@ export class AdminProductosCrearComponent {
     }
   }
 
-  dataURItoBlob(dataURI: string): Blob {
-    const byteString = atob(dataURI.split(',')[1]);
-    const mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0];
-    const ab = new ArrayBuffer(byteString.length);
-    const ia = new Uint8Array(ab);
-    for (let i = 0; i < byteString.length; i++) {
-      ia[i] = byteString.charCodeAt(i);
-    }
-    return new Blob([ab], { type: mimeString });
+  esURIdeDatos(cadena: string): boolean {
+    return cadena.startsWith('data:');
   }
+
+  dataURItoBlob(dataURI: string): Blob {
+    if (!this.esURIdeDatos(dataURI)) {
+      console.error('La cadena proporcionada no es una URI de datos:', dataURI);
+      throw new Error('La cadena proporcionada no es una URI de datos.');
+    }
+
+    const parts = dataURI.split(',');
+    if (parts[0].indexOf('base64') === -1) {
+      throw new Error('La URI de datos no está codificada en base64.');
+    }
+
+    try {
+      const byteString = atob(parts[1]);
+      const mimeString = parts[0].split(':')[1].split(';')[0];
+      const ab = new ArrayBuffer(byteString.length);
+      const ia = new Uint8Array(ab);
+      for (let i = 0; i < byteString.length; i++) {
+        ia[i] = byteString.charCodeAt(i);
+      }
+      return new Blob([ab], { type: mimeString });
+    } catch (error) {
+      console.error('Error al convertir la URI de datos en blob:', error);
+      return new Blob(); // Retornar un Blob vacío como medida de seguridad
+    }
+  }
+
+
+  unformatCurrency(value: string): number {
+    const numericValue = value.replace(/[^0-9,]/g, '').replace('.', '').replace(',', '.');
+    return numericValue ? parseFloat(numericValue) : 0;
+  }
+
+  onCurrencyInput2(event: Event): void {
+    const inputElement = event.target as HTMLInputElement;
+    let inputValue = this.unformatCurrency(inputElement.value);
+    if (!isNaN(inputValue)) {
+      const formattedValue = this.currencyService.formatCurrency(inputValue);
+      inputElement.value = formattedValue;
+    } else {
+      inputElement.value = '';
+    }
+  }
+
+  desformatearMoneda(valorFormateado: any): number {
+    const valorComoCadena = (valorFormateado ?? '').toString();
+    const valorNumerico = valorComoCadena.replace(/[^\d-]/g, '');
+    const resultado = parseFloat(valorNumerico);
+    return !isNaN(resultado) ? resultado : 0;
+  }
+
+  formatSalary(salary: any): string {
+    if (typeof salary === 'string' && salary.includes('$')) {
+      return salary;
+    }
+
+    let numberSalary = typeof salary === 'string' ? parseFloat(salary) : salary;
+
+    if (isNaN(numberSalary) || numberSalary === null) {
+      return '-';
+    }
+
+    return new Intl.NumberFormat('es-CO', {
+      style: 'currency',
+      currency: 'COP',
+      minimumFractionDigits: 0,
+      maximumFractionDigits: 0
+    }).format(numberSalary);
+  }
+
 
   eliminarImagen(index: number) {
     Swal.fire({

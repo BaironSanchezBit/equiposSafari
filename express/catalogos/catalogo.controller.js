@@ -62,19 +62,36 @@ exports.deleteCatalogoPorId = async (req, res) => {
 
 exports.updateCatalogoPorId = async (req, res) => {
   try {
-    const id = req.params.id;
-    const { tipoMaquina, nombre, descripcion, precioComercial, precio, estado, imagenes } = req.body; // Obtener los nuevos valores desde el cuerpo de la solicitud
-    const catalogoActualizado = await Catalogo.findOneAndUpdate(
-      { _id: id },
+    const { tipoMaquina, nombre, descripcion, precioComercial, precio, estado } = req.body;
+
+    let nuevasImagenes = [];
+    if (req.files && req.files.length > 0) {
+      nuevasImagenes = req.files.map(file => {
+        return { url: `http://localhost:4000/uploads/${file.filename}` };
+      });
+    }
+
+    let imagenesExistentes = [];
+    if (req.body.imagenesExistentes) {
+      imagenesExistentes = JSON.parse(req.body.imagenesExistentes);
+    }
+
+    const imagenes = [...imagenesExistentes, ...nuevasImagenes];
+
+    const catalogoActualizado = await Catalogo.findByIdAndUpdate(
+      req.params.id,
       { tipoMaquina, nombre, descripcion, precioComercial, precio, estado, imagenes },
       { new: true }
-    ); // Actualizar el documento con los nuevos valores y obtener el documento actualizado
+    );
+
     res.status(200).json(catalogoActualizado);
   } catch (error) {
-    console.error(error.message);
+    console.error(error);
     res.status(500).send("Error en el servidor");
   }
-}
+};
+
+
 
 exports.obtenerCatalogoTodo = async (req, res) => {
   try {

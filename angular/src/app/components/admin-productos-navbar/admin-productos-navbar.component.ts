@@ -30,7 +30,6 @@ export class AdminProductosNavbarComponent {
     this.authService.getUserDetails().subscribe(
       user => {
         this.datosUser = user;
-        console.log(this.datosUser);
       },
       error => {
       }
